@@ -1,7 +1,7 @@
 {
   "name": "ivastly/mister-arrow",
   "type": "project",
-  "description": "Paper robot which signals about certain events immediately and loudly",
+  "description": "Paper robot which signals about certain events immediately and loudly.",
   "keywords": [
     "papersignals",
     "arduino",
