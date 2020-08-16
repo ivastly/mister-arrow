@@ -1,0 +1,21 @@
+{
+  "name": "ivastly/mister-arrow",
+  "type": "project",
+  "description": "Paper robot which signals about certain events immediately and loudly",
+  "keywords": [
+    "papersignals",
+    "arduino",
+    "outlook",
+    "ews"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^7.3",
+    "php-ews/php-ews": "^1.0"
+  },
+  "config": {
+    "platform": {
+      "php": "7.3.11"
+    }
+  }
+}

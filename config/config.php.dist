@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+use jamesiarmes\PhpEws\Client;
+
+return [
+	'email'                       => '<email here>',
+	'exchange_password'           => '<password here>',
+	'ms_exchange_host'            => 'webmail.doclerholding.com',
+
+	// must be a constant from vendor/php-ews/php-ews/src/Client.php
+	'ms_exchange_version'         => Client::VERSION_2016,
+
+];
