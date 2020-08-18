@@ -31,9 +31,7 @@ $client = new Client(
 	$config['ms_exchange_version']
 );
 
-// Replace with the date range you want to search in. As is, this will find all
-// messages within the current calendar year.
-$start_date = new DateTime('-20 minutes');
+$start_date = new DateTime('-300 minute');
 $end_date   = new DateTime('now');
 $timezone   = 'Eastern Standard Time';
 
@@ -41,7 +39,6 @@ $client->setTimezone($timezone);
 $request                  = new FindItemType();
 $request->ParentFolderIds = new NonEmptyArrayOfBaseFolderIdsType();
 
-// Build the start date restriction.
 $greater_than                                      = new IsGreaterThanOrEqualToType();
 $greater_than->FieldURI                            = new PathToUnindexedFieldType();
 $greater_than->FieldURI->FieldURI                  = UnindexedFieldURIType::ITEM_DATE_TIME_RECEIVED;
@@ -49,7 +46,6 @@ $greater_than->FieldURIOrConstant                  = new FieldURIOrConstantType(
 $greater_than->FieldURIOrConstant->Constant        = new ConstantValueType();
 $greater_than->FieldURIOrConstant->Constant->Value = $start_date->format('c');
 
-// Build the end date restriction;
 $less_than                                      = new IsLessThanOrEqualToType();
 $less_than->FieldURI                            = new PathToUnindexedFieldType();
 $less_than->FieldURI->FieldURI                  = UnindexedFieldURIType::ITEM_DATE_TIME_RECEIVED;
@@ -57,14 +53,15 @@ $less_than->FieldURIOrConstant                  = new FieldURIOrConstantType();
 $less_than->FieldURIOrConstant->Constant        = new ConstantValueType();
 $less_than->FieldURIOrConstant->Constant->Value = $end_date->format('c');
 
-// Build the restriction.
 $request->Restriction                              = new RestrictionType();
 $request->Restriction->And                         = new AndType();
 $request->Restriction->And->IsGreaterThanOrEqualTo = $greater_than;
 $request->Restriction->And->IsLessThanOrEqualTo    = $less_than;
 
-$containsExpression                     = new ContainsExpressionType();
-$containsExpression->ContainmentMode    = new ContainmentModeType();
+$containsExpression                  = new ContainsExpressionType();
+$containsExpression->ContainmentMode = new ContainmentModeType();
+
+// It says this is deprecated, but what is the correct way to do it?
 $containsExpression->ContainmentMode->_ = ContainmentModeType::SUBSTRING;
 $containsExpression->Constant           = new ConstantValueType();
 $containsExpression->Constant->Value    = 'hotline@doclerholding.com';
@@ -72,18 +69,14 @@ $containsExpression->FieldURI           = new PathToUnindexedFieldType();
 $containsExpression->FieldURI->FieldURI = UnindexedFieldURIType::ITEM_DISPLAY_TO;
 $request->Restriction->And->Contains    = $containsExpression;
 
-// Return all message properties.
-$request->ItemShape            = new ItemResponseShapeType();
-$request->ItemShape->BaseShape = DefaultShapeNamesType::ALL_PROPERTIES;
-
-// Search in the user's inbox.
+$request->ItemShape                                = new ItemResponseShapeType();
+$request->ItemShape->BaseShape                     = DefaultShapeNamesType::ALL_PROPERTIES;
 $folder_id                                         = new DistinguishedFolderIdType();
 $folder_id->Id                                     = DistinguishedFolderIdNameType::INBOX;
 $request->ParentFolderIds->DistinguishedFolderId[] = $folder_id;
 
 $response = $client->FindItem($request);
 
-// Iterate over the results, printing any error messages or message subjects.
 $response_messages = $response->ResponseMessages->FindItemResponseMessage;
 foreach ($response_messages as $response_message)
 {
@@ -94,18 +87,21 @@ foreach ($response_messages as $response_message)
 		$message = $response_message->MessageText;
 		fwrite(
 			STDERR,
-			"Failed to search for messages with \"$code: $message\"\n"
+			"Failed to search for messages with $code: $message\n"
 		);
-		continue;
+		exit;
 	}
 
-	// Iterate over the messages that were found, printing the subject for each.
 	$items = $response_message->RootFolder->Items->Message;
+
 	foreach ($items as $item)
 	{
-		$subject = $item->Subject;
-		$sent    = $item->DateTimeSent;
-		$to      = $item->DisplayTo;
-		fwrite(STDOUT, "$subject, to = $to, sent = $sent\n");
+		if (preg_match('/(mailer)|(message)|(messenger)|(jasmincore)/i', $item->Subject))
+		{
+			echo 'hotline';
+			exit;
+		}
 	}
 }
+
+echo 'nothing';
