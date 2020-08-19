@@ -1,16 +1,22 @@
 # Arrow Robot — the first ever non-human teammate of engineering team.
 
 ## Usage
-* Adapt backend module according to your needs, provide `config.php` file and run it somewhere.
+* Adapt backend module according to your needs, provide `config.php`.
 
+* Install dependencies.
 ```bash
-docker run --rm -p 8888:8888 -v $(pwd):/app -w /app chialab/php:7.4 php -S 0.0.0.0:8888
+docker run --rm  -v $(pwd):/app composer composer install --ignore-platform-reqs
 ```
 
-* build the robot physically, following [the paper signals manual](https://papersignals.withgoogle.com/).
+* Run it.
+```bash
+docker run -d --rm -p 8888:8888 -v $(pwd):/app -w /app chialab/php:7.4 php -S 0.0.0.0:8888
+```
 
-* put your Wi-Fi credentials to [sketch/Credentials.h](/sketch/Credentials.h)
+* Build the robot physically, following [the paper signals manual](https://papersignals.withgoogle.com/).
 
-* upload the [sketch](/sketch)
+* Create [sketch/Credentials.h](/sketch/Credentials.h) and put your Wi-Fi credentials and backend API host there.
+
+* Upload the [sketch](/sketch) to robot.
 
 * Vuala! The robot will notify the team about the hotline immediately.

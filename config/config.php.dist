@@ -9,7 +9,6 @@ return [
 	'exchange_password'           => '<password here>',
 	'ms_exchange_host'            => 'webmail.doclerholding.com',
 
-	// must be a constant from vendor/php-ews/php-ews/src/Client.php
+	// Must be a constant from vendor/php-ews/php-ews/src/Client.php
 	'ms_exchange_version'         => Client::VERSION_2016,
-
 ];

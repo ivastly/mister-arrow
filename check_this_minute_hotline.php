@@ -31,7 +31,7 @@ $client = new Client(
 	$config['ms_exchange_version']
 );
 
-$start_date = new DateTime('-300 minute');
+$start_date = new DateTime('-1 minute');
 $end_date   = new DateTime('now');
 $timezone   = 'Eastern Standard Time';
 
@@ -80,7 +80,6 @@ $response = $client->FindItem($request);
 $response_messages = $response->ResponseMessages->FindItemResponseMessage;
 foreach ($response_messages as $response_message)
 {
-	// Make sure the request succeeded.
 	if ($response_message->ResponseClass !== ResponseClassType::SUCCESS)
 	{
 		$code    = $response_message->ResponseCode;
