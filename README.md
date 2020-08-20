@@ -10,7 +10,7 @@ docker run --rm  -v $(pwd):/app composer composer install --ignore-platform-reqs
 
 * Run it.
 ```bash
-docker run -d --rm -p 8888:8888 -v $(pwd):/app -w /app chialab/php:7.4 php -S 0.0.0.0:8888
+docker run -d --rm -u $(id -u ${USER}):$(id -g ${USER})  -p 8888:8888 -v $(pwd):/app -w /app chialab/php:7.4 php -S 0.0.0.0:8888
 ```
 
 * Build the robot physically, following [the paper signals manual](https://papersignals.withgoogle.com/).
