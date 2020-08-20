@@ -20,3 +20,5 @@ docker run -d --rm -p 8888:8888 -v $(pwd):/app -w /app chialab/php:7.4 php -S 0.
 * Upload the [sketch](/sketch) to robot.
 
 * Vuala! The robot will notify the team about the hotline immediately.
+
+![paper-signals-arrow](/arrow-video.gif)
