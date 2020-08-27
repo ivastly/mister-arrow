@@ -1,4 +1,4 @@
-# Arrow Robot — the first ever non-human teammate of engineering team.
+# Arrow Robot — non-human teammate of engineering team.
 
 ## Usage
 * Adapt backend module according to your needs, provide `config.php`.
