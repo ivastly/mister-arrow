@@ -5,7 +5,7 @@
 
 * Install dependencies.
 ```bash
-docker run --rm  -v $(pwd):/app composer composer install --ignore-platform-reqs
+docker run --rm  -v $(pwd):/app -u $(id -u ${USER}):$(id -g ${USER}) composer composer install --ignore-platform-reqs
 ```
 
 * Run it.
