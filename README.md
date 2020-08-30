@@ -13,7 +13,7 @@ docker run --rm  -v $(pwd):/app -u $(id -u ${USER}):$(id -g ${USER}) composer co
 docker run -d --rm -u $(id -u ${USER}):$(id -g ${USER})  -p 8888:8888 -v $(pwd):/app -w /app chialab/php:7.4 php -S 0.0.0.0:8888
 ```
 
-* Build the robot physically, following [the paper signals manual](https://papersignals.withgoogle.com/).
+* Build the robot physically, following [the manual](https://medium.com/@ivastly/internal-recruitment-done-right-weve-built-a-colleague-for-dev-team-a77c6d18f7b6).
 
 * Create [sketch/Credentials.h](/sketch/Credentials.h) and put your Wi-Fi credentials and backend API host there.
 
